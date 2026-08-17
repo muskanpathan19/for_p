@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Before You Sleep 🌙</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    font-family: "Segoe UI", sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(circle at 20% 20%,
+        rgba(157, 120, 205, .18),
+        transparent 28%),
+
+        radial-gradient(circle at 80% 80%,
+        rgba(255, 170, 210, .12),
+        transparent 30%),
+
+        linear-gradient(145deg,
+        #0f1020,
+        #211936 55%,
+        #171326);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+    
+
+
+    /* STARS */
+
+    .stars,
+    .stars::before,
+    .stars::after {
+        position: fixed;
+        inset: 0;
+        content: "";
+        pointer-events: none;
+    }
+
+    .stars {
+        background-image:
+            radial-gradient(circle,
+            rgba(255,255,255,.9) 1px,
+            transparent 1.5px),
+
+            radial-gradient(circle,
+            rgba(255,255,255,.6) 1px,
+            transparent 1.5px);
+
+        background-size:
+            95px 95px,
+            145px 145px;
+
+        background-position:
+            12px 25px,
+            50px 75px;
+
+        opacity: .35;
+
+        animation:
+            twinkle 5s ease-in-out infinite alternate;
+    }
+
+    .stars::before {
+        background-image:
+            radial-gradient(circle,
+            rgba(255,220,240,.8) 1px,
+            transparent 1.5px);
+
+        background-size: 180px 180px;
+
+        animation:
+            drift 18s linear infinite;
+    }
+
+
+    /* MAIN CONTAINER */
+
+    .container {
+        width: min(92%, 460px);
+        text-align: center;
+        position: relative;
+        z-index: 5;
+    }
+
+
+    /* MOON */
+
+    .moon {
+        font-size: 62px;
+        margin-bottom: 12px;
+
+        filter:
+            drop-shadow(0 0 18px
+            rgba(255,235,190,.25));
+
+        animation:
+            float 3s ease-in-out infinite;
+    }
+
+
+    h1 {
+        font-size: clamp(28px, 8vw, 38px);
+        margin-bottom: 12px;
+        letter-spacing: -.5px;
+    }
+
+
+    .subtitle {
+        color: #d9d1e5;
+        line-height: 1.7;
+        font-size: 16px;
+        margin-bottom: 26px;
+    }
+
+
+    /* TYPING TEXT */
+
+    .typing {
+        min-height: 28px;
+        color: #f4c9df;
+        font-weight: 600;
+        margin-bottom: 22px;
+    }
+
+
+    /* BUTTONS */
+
+    button {
+        border: 0;
+        border-radius: 999px;
+
+        padding: 13px 24px;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        color: #271a2d;
+
+        background:
+            linear-gradient(135deg,
+            #ffd7e9,
+            #efb9d3);
+
+        box-shadow:
+            0 8px 25px
+            rgba(239,185,211,.18);
+
+        transition:
+            transform .25s ease,
+            box-shadow .25s ease;
+    }
+
+    button:hover {
+        transform:
+            translateY(-2px)
+            scale(1.04);
+
+        box-shadow:
+            0 12px 30px
+            rgba(239,185,211,.28);
+    }
+
+    button:active {
+        transform: scale(.97);
+    }
+
+
+    .ghost {
+        background:
+            rgba(255,255,255,.09);
+
+        color: white;
+
+        border:
+            1px solid
+            rgba(255,255,255,.13);
+
+        box-shadow: none;
+    }
+
+
+    .hidden {
+        display: none !important;
+    }
+
+
+    /* CARDS */
+
+    .card {
+        text-align: left;
+
+        margin: 12px 0;
+
+        padding: 20px 21px;
+
+        border-radius: 21px;
+
+        background:
+            rgba(255,255,255,.075);
+
+        border:
+            1px solid
+            rgba(255,255,255,.12);
+
+        box-shadow:
+            0 15px 45px
+            rgba(0,0,0,.16);
+
+        backdrop-filter: blur(14px);
+
+        animation:
+            cardIn .55s ease both;
+    }
+
+    .card:nth-child(2) {
+        animation-delay: .12s;
+    }
+
+    .card:nth-child(3) {
+        animation-delay: .24s;
+    }
+
+
+    .number {
+        font-size: 11px;
+
+        letter-spacing: 3px;
+
+        color: #f2bad6;
+
+        margin-bottom: 7px;
+    }
+
+
+    .card h2 {
+        font-size: 17px;
+        margin-bottom: 8px;
+    }
+
+
+    .card p {
+        color: #ddd5e5;
+
+        line-height: 1.55;
+
+        font-size: 14px;
+    }
+
+
+    /* QUESTION */
+
+    .question {
+        margin-top: 20px;
+
+        padding: 19px;
+
+        border-radius: 21px;
+
+        background:
+            rgba(255,255,255,.055);
+
+        border:
+            1px solid
+            rgba(255,255,255,.09);
+    }
+
+
+    .question p {
+        color: #ddd5e5;
+
+        line-height: 1.6;
+
+        margin-bottom: 16px;
+    }
+
+
+    .question strong {
+        color: white;
+        font-size: 18px;
+    }
+
+
+    .button-row {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 10px;
+
+        flex-wrap: wrap;
+    }
+
+
+    /* SLEEPING SCREEN */
+
+    .sleep-card {
+        padding: 23px;
+
+        border-radius: 23px;
+
+        background:
+            rgba(255,255,255,.075);
+
+        border:
+            1px solid
+            rgba(255,255,255,.12);
+
+        backdrop-filter: blur(14px);
+
+        animation:
+            cardIn .6s ease;
+    }
+
+
+    .terminal {
+        margin: 15px 0 20px;
+
+        padding: 16px;
+
+        border-radius: 15px;
+
+        background:
+            rgba(0,0,0,.28);
+
+        color: #c9f7d8;
+
+        font-family:
+            Consolas,
+            monospace;
+
+        text-align: left;
+
+        font-size: 13px;
+
+        line-height: 1.65;
+
+        border:
+            1px solid
+            rgba(201,247,216,.12);
+    }
+
+
+    .green {
+        color: #9ff0b6;
+    }
+
+
+    .pink {
+        color: #f5bcd8;
+    }
+
+
+    .final-message {
+        font-size: 18px;
+
+        line-height: 1.75;
+
+        color: #eee7f1;
+    }
+
+
+    .heart {
+        font-size: 35px;
+
+        margin-top: 13px;
+
+        animation:
+            heartbeat 1.5s
+            ease-in-out infinite;
+    }
+
+
+    .tiny {
+        margin-top: 12px;
+
+        color: #aaa0b5;
+
+        font-size: 11px;
+    }
+
+
+    /* FLOATING HEARTS */
+
+    .float-heart {
+        position: fixed;
+
+        bottom: -30px;
+
+        font-size: 18px;
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        animation:
+            rise 4s linear forwards;
+
+        z-index: 10;
+    }
+
+
+    /* ANIMATIONS */
+
+    @keyframes float {
+
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-8px);
+        }
+    }
+
+
+    @keyframes twinkle {
+
+        from {
+            opacity: .22;
+        }
+
+        to {
+            opacity: .48;
+        }
+    }
+
+
+    @keyframes drift {
+
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(-70px);
+        }
+    }
+
+
+    @keyframes cardIn {
+
+        from {
+            opacity: 0;
+            transform:
+                translateY(18px)
+                scale(.98);
+        }
+
+        to {
+            opacity: 1;
+            transform:
+                translateY(0)
+                scale(1);
+        }
+    }
+
+
+    @keyframes heartbeat {
+
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        15% {
+            transform: scale(1.12);
+        }
+
+        30% {
+            transform: scale(1);
+        }
+    }
+
+
+    @keyframes rise {
+
+        0% {
+            transform:
+                translateY(0)
+                rotate(0deg);
+
+            opacity: 0;
+        }
+
+        12% {
+            opacity: .8;
+        }
+
+        100% {
+            transform:
+                translateY(-110vh)
+                rotate(18deg);
+
+            opacity: 0;
+        }
+    }
+
+
+    /* MOBILE */
+
+    @media (max-height: 700px) {
+
+        .moon {
+            font-size: 45px;
+            margin-bottom: 5px;
+        }
+
+        .card {
+            padding: 15px 17px;
+            margin: 8px 0;
+        }
+
+        .card p {
+            font-size: 13px;
+        }
+
+        .subtitle {
+            margin-bottom: 15px;
+        }
+    }
+
+</style>
+</head>
+
+
+<body>
+
+<div class="stars"></div>
+
+
+<div class="container">
+
+
+    <!-- WELCOME SCREEN -->
+
+    <section id="welcome">
+
+        <div class="moon">
+            🌙
+        </div>
+
+
+        <h1>
+            Hey Pranav 👀
+        </h1>
+
+
+        <div
+            class="typing"
+            id="typing">
+        </div>
+
+
+        <p class="subtitle">
+
+            Before you disappear into
+            sleep mode...<br>
+
+            I have 3 tiny things to tell you.
+
+        </p>
+
+
+        <button onclick="openCards()">
+
+            Open 🤍
+
+        </button>
+
+    </section>
+
+
+
+    <!-- THREE CARDS -->
+
+    <section
+        id="cards"
+        class="hidden">
+
+
+        <div class="card">
+
+            <div class="number">
+                01
+            </div>
+
+
+            <h2>
+                Something I like about you
+            </h2>
+
+
+            <p>
+
+                Your little habits, Your personality, the way you talks, your presence, your weird little ways, the things that make you unique, there's something about you jaanu that pulls me toward you. Simply you're existance is enough for me to be happy.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="number">
+                02
+            </div>
+
+
+            <h2>
+                Something you do that makes me smile
+            </h2>
+
+
+            <p>
+
+                When you're openly affectionate with me, when you say , you love me more then anything. Also when I found out you kept my photo on your wallpaper. Even remembering the little memories of us when we were closer, Don't let this compliment get to your head though 😭
+
+            </p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="number">
+                03
+            </div>
+
+
+            <h2>
+                Something I won't admit easily
+            </h2>
+
+
+            <p>
+
+                I like the feeling of being your girl, I like hearing you say my name or addressing me as your jaanu. And sometimes you do certain things and be like 'god I love this guy sooo much' and I like that feeling of being loved by you. I secretly miss the version of you and I that could talk for hours about absolutely anything. You're on my mind throughout the whole day and I cant help it.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- QUESTION -->
+
+        <div class="question">
+
+            <p>
+
+                Okay, that's enough
+                emotional damage for today 😂
+
+                <br><br>
+
+                One important question...
+
+                <br>
+
+                <strong>
+                    Did you smile? 👀
+                </strong>
+
+            </p>
+
+
+            <div class="button-row">
+
+                <button onclick="yesAnswer()">
+                    YES 😌
+                </button>
+
+
+                <button
+                    class="ghost"
+                    onclick="noAnswer()">
+
+                    NO 😭
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- PRANAV.EXE SCREEN -->
+
+    <section
+        id="sleeping"
+        class="hidden">
+
+
+        <div class="moon">
+            🌙
+        </div>
+
+
+        <div class="sleep-card">
+
+
+            <h1 style="font-size:27px;">
+                Pranav.exe
+            </h1>
+
+
+            <div class="terminal">
+
+                <div>
+                    &gt; checking status...
+                </div>
+
+
+                <div class="green">
+                    &gt; Pranav detected ✓
+                </div>
+
+
+                <div>
+                    &gt; mood: probably sleepy
+                </div>
+
+
+                <div>
+                    &gt; yapping level:
+                    <span class="pink">
+                        97%
+                    </span>
+                </div>
+
+
+                <div>
+                    &gt; sleep mode:
+                    <span class="pink">
+                        ACTIVATED 💤
+                    </span>
+                </div>
+
+            </div>
+
+
+            <p class="final-message">
+
+                Okay sleepyhead.
+
+                <br>
+
+                My job here is done. 🤍
+
+                <br><br>
+
+                Goodnight, Pranav 🌙
+
+            </p>
+
+
+            <div class="heart">
+                🤍
+            </div>
+
+
+            <div class="tiny">
+
+                made with a little bit of nonsense
+                & a little bit of affection
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<script>
+
+
+    /* TYPING ANIMATION */
+
+    const typingText =
+        "I made you a tiny thing... don't judge me 😂";
+
+    const typingElement =
+        document.getElementById("typing");
+
+    let typingIndex = 0;
+
+
+    function typeText() {
+
+        if (typingIndex < typingText.length) {
+
+            typingElement.textContent +=
+                typingText.charAt(typingIndex);
+
+            typingIndex++;
+
+            setTimeout(typeText, 45);
+        }
+    }
+
+
+    typeText();
+
+
+
+    /* OPEN THE CARDS */
+
+    function openCards() {
+
+        document
+            .getElementById("welcome")
+            .classList
+            .add("hidden");
+
+
+        document
+            .getElementById("cards")
+            .classList
+            .remove("hidden");
+
+
+        makeHearts(4);
+    }
+
+
+
+    /* YES BUTTON */
+
+    function yesAnswer() {
+
+        document
+            .getElementById("cards")
+            .classList
+            .add("hidden");
+
+
+        document
+            .getElementById("sleeping")
+            .classList
+            .remove("hidden");
+
+
+        makeHearts(10);
+    }
+
+
+
+    /* NO BUTTON */
+
+    function noAnswer() {
+
+        alert(
+            "Liar. 😭😂 Try again."
+        );
+
+    }
+
+
+
+    /* FLOATING HEARTS */
+
+    function makeHearts(number) {
+
+        const hearts = [
+            "🤍",
+            "♡",
+            "✨",
+            "💗"
+        ];
+
+
+        for (
+            let i = 0;
+            i < number;
+            i++
+        ) {
+
+            setTimeout(() => {
+
+                const heart =
+                    document.createElement("div");
+
+
+                heart.className =
+                    "float-heart";
+
+
+                heart.textContent =
+                    hearts[
+                        Math.floor(
+                            Math.random()
+                            * hearts.length
+                        )
+                    ];
+
+
+                heart.style.left =
+                    Math.random() * 95 + "vw";
+
+
+                heart.style.animationDuration =
+                    (3 + Math.random() * 2) + "s";
+
+
+                heart.style.fontSize =
+                    (14 + Math.random() * 12)
+                    + "px";
+
+
+                document.body.appendChild(
+                    heart
+                );
+
+
+                setTimeout(() => {
+
+                    heart.remove();
+
+                }, 5500);
+
+            }, i * 160);
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
